@@ -1,32 +1,21 @@
-/* --- Chainable.js ---
- *	Written By Iain Shorter
- *
- *	Designed to be used with require.js for module loading
- *
- *	Transpile to es5 format using babel or similar for maximum browser compatibility
- *	The vanilla es6 Map may fit your project better if it matches your compatibility requirements
- */
- define(function () {
- 
- 	'use strict';
+'use strict';
 
 	class Chainable {
 	
 		constructor (fn, trace) {
 			this.task = fn;
 			this.label = trace;
-			this.subscribers = [];
-			this.catchers = [];
+			this.children = [];
 		}
 	
 		then (fn, trace) {
-			var subscriber;
+			var child;
 			if (fn instanceof Chainable) {
 				subscriber = fn;
 			} else {
 				subscriber = new Chainable(fn, trace);
 			}
-			this.subscribers.push(subscriber);
+			this.children.push(subscriber);
 			return subscriber;
 		}
 	
@@ -135,5 +124,3 @@
 	}
 
 	return Chainable;
-	
-});

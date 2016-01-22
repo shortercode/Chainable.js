@@ -1,0 +1,1 @@
+cp ./src/server.js ./server.js
